@@ -1,7 +1,7 @@
 # Site settings
 title: iris的博客
 SEOTitle: iris的博客 
-header-img: img/typemoon.jpg
+header-img: img/typemoon1.jpg
 email: jnuiris@gmail.com
 description: "坚持写博客"
 keyword: ".net c# angular vue react"
@@ -10,7 +10,7 @@ baseurl: ""      # for example, '/blog' if your blog hosted on 'host/blog'
 github_repo: "https://github.com/jnuiris/jnuiris.github.io" # you code repository
 
 # Sidebar settings
-sidebar: true                           # whether or not using Sidebar.
+sidebar: false                           # whether or not using Sidebar.
 sidebar-about-description: "热爱生活"
 
 
