@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      Post的content-type
+title:      Post的ContentType
 subtitle:   客户端演示
 date:       2023-10-01
 author:     BY
