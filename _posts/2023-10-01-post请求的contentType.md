@@ -1,7 +1,7 @@
 ---
 layout:     post
-title:      Post请求的Content-Type
-subtitle:   不涉及服务端解析
+title:      Post的content-type
+subtitle:   客户端演示
 date:       2023-10-01
 author:     BY
 catalog: true
