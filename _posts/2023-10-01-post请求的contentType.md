@@ -1,4 +1,4 @@
-```
+---
 layout:     post
 title:      Post请求的Content-Type
 subtitle:   以.net演示
@@ -7,7 +7,7 @@ author:     BY
 catalog: true
 tags:
     - Http
-```
+---
 
 content-type是http协议标准定义的字段，常见的content-type包括各种资源，html、jpg等等，这里讨论post请求体中的content-type，主要是ajax请求中的content-type，这篇博客暂时不讨论具体服务器如何解析各种content-type。
 
