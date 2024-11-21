@@ -1,0 +1,142 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
+using System.Security.Authentication.ExtendedProtection;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.Memory;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
+using Newtonsoft.Json;
+using RabbitMQ.Client;
+using ZXing;
+
+namespace ConsumerTest
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var a = new Layout();
+            a.TrLs = new List<TrItem>();
+            a.TrLs.Add(new TrItem()
+            {
+                x = "1",
+                y = "2",
+                TdLs = new List<TdItem>()
+                {
+                    new TdItem()
+                    {
+                        l = "1",
+                        h = "2"
+                    }
+                }
+            });
+            a.TrLs.Add(new TrItem()
+            {
+                x = "3",
+                y = "4",
+                TdLs = new List<TdItem>()
+                {
+                    new TdItem()
+                    {
+                        l = "3",
+                        h = "4"
+                    }
+                }
+            });
+            
+            var b = JsonConvert.SerializeObject(a);
+
+            var s = $@"{{
+  ""Height"": null,
+  ""Width"": null,
+  ""TrLs"": [
+    {{
+      ""x"": ""1"",
+      ""y"": ""2""
+    }},
+    {{
+      ""x"": ""3"",
+      ""y"": ""4""
+    }}
+  ]
+}}";
+            dynamic c = JsonConvert.DeserializeObject(b);
+            
+            var trLs = c.TrLs as dynamic;
+
+            // foreach (dynamic tr in trLs)
+            // {
+            //     tr.x = "44444";
+            //     // dynamic tr1 = JsonConvert.DeserializeObject(tr);
+            //     // dynamic tdLs = JsonConvert.DeserializeObject(tr) as IList;
+            //     var tdLs = tr.TdLs as IList;
+            //     foreach (dynamic td in tdLs)
+            //     {
+            //         // td.l = "111";
+            //         // td.h = "444888888888";
+            //         td.remove("l");
+            //     }
+            // }
+            for (var i = 0; i < trLs.Count; i++)
+            {
+                trLs[i].x = "1";
+
+                var l = trLs[i].TdLs as IList;
+                var len = l.Count;
+                
+                for (var j = 0; j < len; j++)
+                {
+                    trLs[i].TdLs[j].l = "111";
+                    trLs[i].TdLs[j].h = "44888888888888888";
+
+                    if (j == 0)
+                    {
+                        trLs[i].TdLs[j] = JsonConvert.DeserializeObject(JsonConvert.SerializeObject(new
+                        {
+                            l = "rgjhdhfhdf"
+                        })) as dynamic;
+                    }
+                }
+            }
+
+            var trans = JsonConvert.DeserializeObject<Layout>(JsonConvert.SerializeObject(c));
+            dynamic d = c;
+            dynamic e = d;
+        }
+    }
+
+    public class Layout
+    {
+        public decimal? Height { get; set; }
+        public decimal? Width { get; set; }
+        public List<TrItem> TrLs { get; set; }
+    }
+    
+    public class LayoutOut
+    {
+        public decimal? Height { get; set; }
+        public decimal? Width { get; set; }
+        public object TdLs { get; set; }
+    }
+    
+    public class SingleTdItem
+    {
+        public string l { get; set; }
+    }
+
+    public class TrItem
+    {
+        public string x { get; set; }
+        public string y { get; set; }
+        public List<TdItem> TdLs { get; set; }
+    }
+
+    public class TdItem
+    {
+        public string l { get; set; }
+        public string h { get; set; }
+    }
+}
